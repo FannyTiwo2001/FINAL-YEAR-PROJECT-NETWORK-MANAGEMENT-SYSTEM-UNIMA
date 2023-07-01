@@ -1,0 +1,21 @@
+int fa0/0
+ip add 41.70.47.67 255.255.255.128
+ip nat outside
+no sh
+int fa0/1
+ip add 192.168.1.1 255.255.255.0
+ip nat outside
+no sh
+ip nat inside source list 10 int fa0/0 overload
+access-list 10 permit 192.168.1.0 0.0.0.255
+ip route 0.0.0.0 0.0.0.0 41.70.47.126
+snmp-server community public RW
+
+SWITCH
+ en
+config t
+int vlan1
+ip add 192.168.1.100
+no sh
+exit
+snmp-server community public RW
